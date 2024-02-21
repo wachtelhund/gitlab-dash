@@ -1,0 +1,10 @@
+<div class="container">
+   <span class="title">{{title}}</span> 
+
+   <div class="button-group">
+        @for (button of buttons; track $index) {
+            <a class="button" routerLinkActive="active" routerLink={{button.href}} mat-button>{{button.text}}</a>
+        }
+        <a class="button" routerLinkActive="active" href="http://gitlab.com/oauth/authorize" mat-button>Login</a>
+   </div>
+</div>
