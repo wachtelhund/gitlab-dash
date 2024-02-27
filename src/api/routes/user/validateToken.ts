@@ -22,9 +22,8 @@ export async function validateToken (
         }
         next();
     } catch (error) {
-        console.log(error);
         res.clearCookie('token');
-        res.status(401).send('Unauthorized');
+        res.status(401).redirect('/login');
     }
 }
 
