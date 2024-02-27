@@ -20,7 +20,7 @@ export class ProfileComponent {
         state: 'STATE',
         scope: 'api',
         response_type: 'code',
-        redirect_uri: `http://localhost:4000/api/auth`,
+        redirect_uri: `http://localhost:4000/${env.AUTH.REDIRECT_URI}`,
       }
     
       const url = new URL('https://gitlab.lnu.se/oauth/authorize?')

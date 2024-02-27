@@ -4,6 +4,7 @@ import express from 'express';
 import { fileURLToPath } from 'node:url';
 import { dirname, join, resolve } from 'node:path';
 import bootstrap from './src/main.server';
+import { router } from './src/api/routes/router'
 import env from './env.json';
 
 // The Express app is exported so that it can be used by serverless Functions.
@@ -19,34 +20,8 @@ export function app(): express.Express {
   server.set('views', browserDistFolder);
 
   // Example Express Rest API endpoints
-  server.get('/api/auth', async (req, res) => {
-    const { code, state } = req.query
-    console.log(state, code);
-    console.log(req.query);
-    
-    const paramaters = {
-      client_id: env.AUTH.OAUTH_APPLICATION_ID,
-      client_secret: env.AUTH.OAUTH_KEY,
-      code,
-      grant_type: 'authorization_code',
-      redirect_uri: `${req.protocol}://${req.headers.host}/api/auth`,
-    }
-    
-    const url = new URL('https://gitlab.lnu.se/oauth/token?')
-    url.search = new URLSearchParams(paramaters as any).toString()
-    // console.log(url);
-    console.log(url.search);
-    
-    
-    const response = await fetch(url.toString(), {
-      method: 'POST',
-    })
-    const data = await response.json()
-    console.log(data);
-    
-    res.redirect('/profile') 
-  })
-  // Serve static files from /browser
+  server.use(router)
+ 
   server.get('*.*', express.static(browserDistFolder, {
     maxAge: '1y'
   }));
