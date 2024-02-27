@@ -17,15 +17,34 @@ export class AuthController {
         redirect_uri: `${req.protocol}://${req.headers.host}/${env.AUTH.REDIRECT_URI}`,
         }
     
-        const url = new URL('https://gitlab.lnu.se/oauth/token?')
+        const url = new URL('https://gitlab.lnu.se/oauth/token')
         url.search = new URLSearchParams(paramaters as any).toString()
     
         const response = await fetch(url.toString(), {
         method: 'POST',
         })
         const data = await response.json()
+
+        const cookieConfig = {
+            httpOnly: true,
+            maxAge: 1000000,
+            signed: true
+        }
         console.log(data);
+
+        res.cookie('token', data, cookieConfig)
     
-        res.redirect('/profile') 
+        res.redirect('/') 
+    }
+
+    public async readCookie(
+        req: Request,
+        res: Response,
+        next: NextFunction
+    ) {
+        const signedCookies = req.signedCookies;
+        const myTestCookie = req.signedCookies.token;
+        console.log('our test signed cookie:', myTestCookie);
+        res.redirect('/profile')
     }
 }
