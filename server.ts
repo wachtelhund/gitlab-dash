@@ -3,7 +3,6 @@ import { CommonEngine } from '@angular/ssr';
 import express from 'express';
 import { fileURLToPath } from 'node:url';
 import { dirname, join, resolve } from 'node:path';
-import { CodeChallange } from './src/helpers/crypto/CodeChallenge';
 import bootstrap from './src/main.server';
 import env from './env.json';
 
@@ -23,24 +22,23 @@ export function app(): express.Express {
   server.get('/api/auth', async (req, res) => {
     const { code, state } = req.query
     console.log(state, code);
-    console.log(req);
-    const codeChallange = new CodeChallange();
+    console.log(req.query);
     
     const paramaters = {
       client_id: env.AUTH.OAUTH_APPLICATION_ID,
+      client_secret: env.AUTH.OAUTH_KEY,
       code,
       grant_type: 'authorization_code',
-      redirect_uri: `${req.protocol}://${req.headers.host}/profile`,
-      code_verifier: codeChallange.getVerifier().toString()
+      redirect_uri: `${req.protocol}://${req.headers.host}/api/auth`,
     }
     
     const url = new URL('https://gitlab.lnu.se/oauth/token?')
     url.search = new URLSearchParams(paramaters as any).toString()
-    console.log(url);
+    // console.log(url);
     console.log(url.search);
     
     
-    const response = await fetch(url, {
+    const response = await fetch(url.toString(), {
       method: 'POST',
     })
     const data = await response.json()
