@@ -7,9 +7,24 @@ export class UserController {
         res: Response,
         next: NextFunction
     ) {
-        // fetch oauth user info
         const token = req.signedCookies.token.access_token;
         const url = new URL('https://gitlab.lnu.se/api/v4/user')
+        const response = await fetch(url.toString(), {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        const data = await response.json()
+        res.send(data);
+    }
+
+    public async getActivities(
+        req: Request,
+        res: Response,
+        next: NextFunction
+    ) {
+        const token = req.signedCookies.token.access_token;
+        const url = new URL('https://gitlab.lnu.se/api/v4/user/activities')
         const response = await fetch(url.toString(), {
             headers: {
                 Authorization: `Bearer ${token}`

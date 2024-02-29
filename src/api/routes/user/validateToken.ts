@@ -18,11 +18,13 @@ export async function validateToken (
                 maxAge: 1000000,
                 signed: true
             }
+            res.cookie('signedin', true)
             res.cookie('token', newToken, cookieConfig)
         }
         next();
     } catch (error) {
         res.clearCookie('token');
+        res.clearCookie('signedin');
         res.status(401).redirect('/login');
     }
 }

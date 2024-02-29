@@ -1,7 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, afterNextRender, inject } from '@angular/core';
 import { HyperButton } from '../../types/ui/HyperButton';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
+import { SsrCookieService } from 'ngx-cookie-service-ssr';
 
 @Component({
   selector: 'app-header',

@@ -1,4 +1,5 @@
-<p>profile works!</p>
-<a href={{url}} mat-button >login</a>
-<a href="/api/auth">auth</a>
-<a href="/api/auth/cookie">cookie</a>
+<p>{{profile.name}} {{profile.id}}</p>
+<p>{{profile.email}}</p>
+<p><a href={{profile.web_url}}>&#64;{{profile.username}}</a></p>
+<p>Last activity: {{profile.last_activity_on}}</p>
+<img src={{profile.avatar_url}} alt="User avatar">
