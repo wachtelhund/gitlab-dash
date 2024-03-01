@@ -59,8 +59,6 @@ export class AppComponent {
   }
 
   renderHeader() {
-    console.log('rendering header');
-    
     this.cookieService.get('signedin') === 'true' ? this.buttons = this.loggedInButtons : this.buttons = this.loggedOutButtons;
   }
 }

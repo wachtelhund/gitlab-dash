@@ -31,7 +31,6 @@ export class AuthController {
             maxAge: 1000000,
             signed: true
         }
-        console.log(data);
 
         res.cookie('token', data, cookieConfig)
         res.cookie('signedin', true)
@@ -47,19 +46,5 @@ export class AuthController {
         res.clearCookie('token');
         res.clearCookie('signedin');
         res.status(200).send('logged out');
-    }
-
-    public async readCookie(
-        req: Request,
-        res: Response,
-        next: NextFunction
-    ) {
-        const signedCookies = req.signedCookies;
-        const myTestCookie = req.signedCookies.token;
-        const signedInCookie = req.cookies.signedin;
-        console.log('our test signed cookie:', myTestCookie);
-        console.log('our test signedin cookie:', signedInCookie);
-        
-        res.redirect('/profile')
     }
 }
