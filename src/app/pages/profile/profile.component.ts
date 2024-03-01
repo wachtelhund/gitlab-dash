@@ -1,30 +1,30 @@
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { Component, afterNextRender } from '@angular/core';
-import env from '../../../../env.json'
-import { Router } from '@angular/router';
+import { Component } from '@angular/core';
 import { UserService } from '../../services/user.service';
-import { Observable } from 'rxjs';
 import { Profile } from '../../types/user/profile';
-import { CommonModule } from '@angular/common';
-// import { CodeChallange } from '../../../helpers/crypto/CodeChallenge';
+import { CommonModule, DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [HttpClientModule, CommonModule],
+  imports: [HttpClientModule, CommonModule, DatePipe],
   providers: [HttpClient, UserService],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss'
 })
 export class ProfileComponent {
   profile!: Profile;
+  lastActivityOn!: Date;
   constructor (private userService: UserService) {
       this.get();
-    }
+  }
 
-    get() {
-      this.userService.getProfile().subscribe((data) => {
-        this.profile = data;
-      });
-    }
+  get() {
+    this.userService.getProfile().subscribe((data) => {
+      this.profile = data;
+    });
+    this.userService.getActivities({page: 1, per_page: 1}).subscribe((data) => {
+      this.lastActivityOn = data.body[0].created_at;
+    });
+  }
 }

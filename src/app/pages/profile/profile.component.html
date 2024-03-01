@@ -1,5 +1,5 @@
 <p>{{profile.name}} {{profile.id}}</p>
 <p>{{profile.email}}</p>
 <p><a href={{profile.web_url}}>&#64;{{profile.username}}</a></p>
-<p>Last activity: {{profile.last_activity_on}}</p>
+<p>Last activity: {{lastActivityOn | date:'short'}}</p>
 <img src={{profile.avatar_url}} alt="User avatar">
