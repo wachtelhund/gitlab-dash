@@ -45,6 +45,7 @@ export class AuthController {
     ) {
         res.clearCookie('token');
         res.clearCookie('signedin');
-        res.status(200).send('logged out');
+        res.status(200).json({message: 'Logged out successfully!'});
+
     }
 }

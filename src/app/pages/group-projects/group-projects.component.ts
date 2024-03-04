@@ -21,11 +21,7 @@ export class GroupProjectsComponent {
 
   get() {
     this.userService.getGroupProjects().subscribe((res) => {
-      console.log(res.data.currentUser);
-      
       this.groups = res.data.currentUser.groups.nodes;
     });
   }
-
-
 }

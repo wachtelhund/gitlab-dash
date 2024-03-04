@@ -2,15 +2,12 @@
    <span class="title">{{title}}</span> 
 
    <div class="button-group">
-        @for (button of buttons; track $index) {
-            <!-- @if (!isLoggedIn && button.hiddenWhenLoggedOut) {
-            } -->
+        @for (button of buttons(); track $index) {
             @if (button.external) {
                 <a class="button" (click)="button?.sideEffect?.()" href={{button?.href}} mat-button>{{button?.text}}</a>
             } @else {
                 <a class="button" (click)="button?.sideEffect?.()" routerLinkActive="active" [routerLink]=button.href mat-button>{{button.text}}</a>
             }
         }
-        <!-- <a class="button" routerLinkActive="active" href="http://gitlab.com/oauth/authorize" mat-button>Login</a> -->
    </div>
 </div>
