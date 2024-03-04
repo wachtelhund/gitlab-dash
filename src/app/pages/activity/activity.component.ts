@@ -1,5 +1,4 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, WritableSignal, signal } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { Activity } from '../../types/user/activity';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
@@ -17,7 +16,7 @@ import { DatePipe } from '@angular/common';
 /**
  * Activity component
  */
-export class ActivityComponent {
+export class ActivityComponent implements OnInit {
   activities = new MatTableDataSource<Activity>();
   length = 200;
   pageSize = 10;
@@ -39,8 +38,8 @@ export class ActivityComponent {
    */
   get() {
     this.userService.getActivities({page: this.pageIndex + 1, per_page: this.pageSize}).subscribe((data) => {
-      this.activities = new MatTableDataSource(data.body);
-      this.length = data.headers.get('X-Total-Count');
+      this.activities = new MatTableDataSource(data.body as unknown as Activity[]);
+      this.length = data.headers.get('X-Total-Count') as unknown as number;
       const totalCountHeader = data.headers.get('X-Total-Count');
       this.length = totalCountHeader ? parseInt(totalCountHeader, 10) : 0;
     });

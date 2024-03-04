@@ -43,7 +43,7 @@ async function refreshToken(refreshToken: string) {
         grant_type: 'refresh_token',
     }
     const url = new URL('https://gitlab.lnu.se/oauth/token')
-    url.search = new URLSearchParams(paramaters as any).toString()
+    url.search = new URLSearchParams(paramaters as OAuthParamaters).toString()
 
     const response = await fetch(url.toString(), {
         method: 'POST',
@@ -59,4 +59,11 @@ function isExpired(token: Token) {
     const now = Date.now() / 1000;
     const expiry = token.created_at + token.expires_in;
     return now > expiry;
+}
+
+type OAuthParamaters = {
+    client_id: string,
+    client_secret: string,
+    refresh_token: string,
+    grant_type: string,
 }

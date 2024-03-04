@@ -1,11 +1,8 @@
-import { Component, afterNextRender, inject, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './ui/header/header.component';
-import { HyperButton } from './types/ui/HyperButton';
-import env from '../../env.json';
 import { SsrCookieService } from 'ngx-cookie-service-ssr';
 import { HttpClient } from '@angular/common/http';
-import { router } from '../api/routes/router';
 import { AuthService } from './services/auth.service';
 
 @Component({

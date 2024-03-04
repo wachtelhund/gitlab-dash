@@ -1,7 +1,6 @@
 import { Injectable, Output } from '@angular/core';
-import { EventEmitter } from '@angular/core';
 import { SsrCookieService } from 'ngx-cookie-service-ssr';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'

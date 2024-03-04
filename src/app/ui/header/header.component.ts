@@ -1,4 +1,4 @@
-import { Component, Input, Signal, WritableSignal, afterNextRender, inject, signal } from '@angular/core';
+import { Component, Input, OnInit, signal } from '@angular/core';
 import { HyperButton } from '../../types/ui/HyperButton';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
@@ -16,7 +16,7 @@ import { HttpClient } from '@angular/common/http';
 /**
  * Header component
  */
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
   @Input() title!: string;
   buttons = signal<HyperButton[]>([]);
 
@@ -51,7 +51,7 @@ export class HeaderComponent {
       }
     
       const url = new URL('https://gitlab.lnu.se/oauth/authorize?')
-      url.search = new URLSearchParams(paramaters as any).toString()
+      url.search = new URLSearchParams(paramaters as OAuthParamaters).toString()
 
       this.loggedOutButtons.push({ text: 'Login', href: url.toString(), external: true, sideEffect: () => {
         this.login();
@@ -72,4 +72,12 @@ export class HeaderComponent {
     this.authService.login();
   }
 
+}
+
+type OAuthParamaters = {
+    client_id: string,
+    state: string,
+    scope: string,
+    response_type: string,
+    redirect_uri: string,
 }

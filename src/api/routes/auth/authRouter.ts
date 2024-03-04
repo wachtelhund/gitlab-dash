@@ -3,5 +3,5 @@ import { AuthController } from '../../controllers/auth/AuthController';
 export const router = express.Router();
 const controller = new AuthController();
 
-router.get('/', (req, res, next) => controller.authenicate(req, res, next));
-router.post('/logout', (req, res, next) => controller.logout(req, res, next));
+router.get('/', (req, res) => controller.authenicate(req, res));
+router.post('/logout', (req, res) => controller.logout(req, res));

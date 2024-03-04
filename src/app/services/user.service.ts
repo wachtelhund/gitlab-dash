@@ -1,11 +1,11 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import env from '../../../env.json';
 import { Observable } from 'rxjs';
 import { Profile } from '../types/user/profile';
 import { Activity } from '../types/user/activity';
 import { PagedRequest } from '../types/user/paged.request';
-import { GLGroup, GLGroupsResponse } from '../types/user/groupStruct';
+import { GLGroupsResponse } from '../types/user/groupStruct';
 
 @Injectable({
   providedIn: 'root'
@@ -27,8 +27,8 @@ export class UserService {
   /**
    * Get the activities
    */
-  public getActivities(req: PagedRequest): Observable<any> {
-    return this.http.get<Activity>(env.BASE_URL + '/api/user-data/activities', {
+  public getActivities(req: PagedRequest): Observable<HttpResponse<Activity[]>> {
+    return this.http.get<Activity[]>(env.BASE_URL + '/api/user-data/activities', {
       params: {
         page: req.page.toString(),
         per_page: req.per_page.toString()

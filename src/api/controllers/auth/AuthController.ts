@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from "express";
+import { Request, Response } from "express";
 import env from '../../../../env.json'
 
 /**
@@ -11,7 +11,6 @@ export class AuthController {
     public async authenicate(
         req: Request,
         res: Response,
-        next: NextFunction
     ) {
         const { code } = req.query
     
@@ -24,7 +23,7 @@ export class AuthController {
         }
     
         const url = new URL('https://gitlab.lnu.se/oauth/token')
-        url.search = new URLSearchParams(paramaters as any).toString()
+        url.search = new URLSearchParams(paramaters as OAuthParamaters).toString()
     
         const response = await fetch(url.toString(), {
         method: 'POST',
@@ -49,11 +48,17 @@ export class AuthController {
     public async logout(
         req: Request,
         res: Response,
-        next: NextFunction
     ) {
         res.clearCookie('token');
         res.clearCookie('signedin');
         res.status(200).json({message: 'Logged out successfully!'});
-
     }
+}
+
+type OAuthParamaters = {
+    client_id: string,
+    client_secret: string,
+    code: string,
+    grant_type: string,
+    redirect_uri: string,
 }

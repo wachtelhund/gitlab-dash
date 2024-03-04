@@ -30,7 +30,9 @@ export class ProfileComponent {
       this.profile = data;
     });
     this.userService.getActivities({page: 1, per_page: 1}).subscribe((data) => {
-      this.lastActivityOn = data.body[0].created_at;
+      if (data.body !== null) {
+        this.lastActivityOn = new Date(data.body[0].created_at);
+      }
     });
   }
 }

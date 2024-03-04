@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from "express";
+import { Request, Response } from "express";
 import { GLGroupsResponse } from "../../../app/types/user/groupStruct";
 
 /**
@@ -11,7 +11,6 @@ export class UserController {
     public async getProfile(
         req: Request,
         res: Response,
-        next: NextFunction
     ) {
         const token = req.signedCookies.token.access_token;
         const url = new URL('https://gitlab.lnu.se/api/v4/user')
@@ -30,7 +29,6 @@ export class UserController {
     public async getActivities(
         req: Request,
         res: Response,
-        next: NextFunction
     ) {
         const token = req.signedCookies.token.access_token;
         
@@ -58,7 +56,6 @@ export class UserController {
     public async getGroupProjects(
         req: Request,
         res: Response,
-        next: NextFunction
     ) {
         const token = req.signedCookies.token.access_token;
 
