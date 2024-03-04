@@ -17,7 +17,7 @@ import { AuthService } from './services/auth.service';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title = 'Testing Angular SSR';
+  title = 'GitLab LNU';
   url!: string;
   router = inject(Router);
   cookieService = inject(SsrCookieService);

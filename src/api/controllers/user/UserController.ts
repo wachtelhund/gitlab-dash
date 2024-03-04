@@ -1,8 +1,13 @@
 import { NextFunction, Request, Response } from "express";
-import env from '../../../../env.json'
-import { ParsedQs } from "qs";
+import { GLGroupsResponse } from "../../../app/types/user/groupStruct";
 
+/**
+ * User controller
+ */
 export class UserController {
+    /**
+     * Get the profile
+     */
     public async getProfile(
         req: Request,
         res: Response,
@@ -19,6 +24,9 @@ export class UserController {
         res.send(data);
     }
 
+    /**
+     * Get the activities
+     */
     public async getActivities(
         req: Request,
         res: Response,
@@ -44,6 +52,9 @@ export class UserController {
         res.send(data);
     }
 
+    /**
+     * Get the group projects
+     */
     public async getGroupProjects(
         req: Request,
         res: Response,
@@ -51,18 +62,18 @@ export class UserController {
     ) {
         const token = req.signedCookies.token.access_token;
 
-        // Fetch
+        // GraphQL query
         const graphqlQuery = {
         query: `{
             currentUser {
                 username
-                groups(first: 3) {
+                groups(first: 4) {
                     nodes {
                         name
                         webUrl
                         avatarUrl
                         fullPath
-                        projects(first: 5) {
+                        projects(first: 6) {
                             nodes {
                                 name
                                 webUrl
@@ -98,6 +109,14 @@ export class UserController {
             body: JSON.stringify(graphqlQuery)
         })
         const data = await response.json()
+        if ((data as GLGroupsResponse).data.currentUser.groups.nodes.length > 3) {
+            data.data.currentUser.groups.hasMore = true;
+        }
+        for (const group of (data as GLGroupsResponse).data.currentUser.groups.nodes) {
+            if (group.projects.nodes.length > 5) {
+                group.projects.hasMore = true;
+            }
+        }
         res.send(data);
     }
 }

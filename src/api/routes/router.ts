@@ -6,7 +6,7 @@ import { validateToken } from './user/validateToken';
 export const router = express.Router();
 
 router.use('/api/auth', authRouter);
-router.use('/api/user-data',validateToken , userRouter);
+router.use('/api/user-data', validateToken, userRouter);
 
 router.use('*', (_req, _res, next) => {
   next();

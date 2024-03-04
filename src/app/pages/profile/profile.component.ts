@@ -12,6 +12,9 @@ import { CommonModule, DatePipe } from '@angular/common';
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss'
 })
+/**
+ * Profile component
+ */
 export class ProfileComponent {
   profile!: Profile;
   lastActivityOn!: Date;
@@ -19,6 +22,9 @@ export class ProfileComponent {
       this.get();
   }
 
+  /**
+   * Get the profile and last activity
+   */
   get() {
     this.userService.getProfile().subscribe((data) => {
       this.profile = data;

@@ -30,6 +30,7 @@ export interface GLGroup {
     fullPath: string;
     projects: {
         nodes: GLProject[];
+        hasMore?: boolean;
     };
 }
 
@@ -39,6 +40,7 @@ export interface GLGroupsResponse {
             username: string;
             groups: {
                 nodes: GLGroup[];
+                hasMore?: boolean;
             };
         };
     }

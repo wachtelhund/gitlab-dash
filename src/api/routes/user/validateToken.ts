@@ -2,6 +2,9 @@ import { NextFunction, Response, Request } from "express";
 import { Token } from "../../../app/types/auth/Token";
 import env from '../../../../env.json'
 
+/**
+ * Middleware to validate the token and refresh it if it's expired
+ */
 export async function validateToken (
         req: Request,
         res: Response,
@@ -29,6 +32,9 @@ export async function validateToken (
     }
 }
 
+/**
+ * Refresh the token
+ */
 async function refreshToken(refreshToken: string) {
     const paramaters = {
         client_id: env.AUTH.OAUTH_APPLICATION_ID,
@@ -46,6 +52,9 @@ async function refreshToken(refreshToken: string) {
     return data
 }
 
+/**
+ * Check if the token is expired
+ */
 function isExpired(token: Token) {
     const now = Date.now() / 1000;
     const expiry = token.created_at + token.expires_in;

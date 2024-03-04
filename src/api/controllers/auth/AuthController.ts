@@ -1,8 +1,13 @@
 import { NextFunction, Request, Response } from "express";
 import env from '../../../../env.json'
-import { SsrCookieService } from "ngx-cookie-service-ssr";
 
+/**
+ * Authentication controller
+ */
 export class AuthController {
+    /**
+     * Authenticate user with GitLab
+     */
     public async authenicate(
         req: Request,
         res: Response,
@@ -38,6 +43,9 @@ export class AuthController {
         res.redirect('/') 
     }
 
+    /**
+     * Destroy user session
+     */
     public async logout(
         req: Request,
         res: Response,

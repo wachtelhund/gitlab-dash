@@ -13,9 +13,11 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
+/**
+ * Header component
+ */
 export class HeaderComponent {
   @Input() title!: string;
-  // @Input() buttons!: WritableSignal<HyperButton[]>;
   buttons = signal<HyperButton[]>([]);
 
   loggedInButtons: HyperButton[] = [
@@ -63,6 +65,9 @@ export class HeaderComponent {
     });
   }
 
+  /**
+   * Login
+   */
   login() {
     this.authService.login();
   }

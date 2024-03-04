@@ -14,9 +14,10 @@ import { DatePipe } from '@angular/common';
   templateUrl: './activity.component.html',
   styleUrl: './activity.component.scss'
 })
+/**
+ * Activity component
+ */
 export class ActivityComponent {
-  // activities: AbortSignal(Activity[] = [];
-  // activities = signal<Activity[]>([]);
   activities = new MatTableDataSource<Activity>();
   length = 200;
   pageSize = 10;
@@ -26,14 +27,16 @@ export class ActivityComponent {
   pageEvent!: PageEvent;
 
   displayedColumns: string[] = ['action_name', 'created_at', 'target_title', 'target_type'];
-  constructor(private userService: UserService) {
-    
-  }
+
+  constructor(private userService: UserService) {}
 
   ngOnInit() {
     this.get();
   }
 
+  /**
+   * Get the activities
+   */
   get() {
     this.userService.getActivities({page: this.pageIndex + 1, per_page: this.pageSize}).subscribe((data) => {
       this.activities = new MatTableDataSource(data.body);
@@ -43,6 +46,9 @@ export class ActivityComponent {
     });
   }
 
+  /**
+   * Handle the page event
+   */
   handlePageEvent(event: PageEvent) {
     this.pageEvent = event;
     this.pageSize = event.pageSize;
@@ -51,6 +57,9 @@ export class ActivityComponent {
     this.get();
   }
 
+  /**
+   * Set the page size options
+   */
   setPageSizeOptions(setPageSizeOptionsInput: string) {
     if (setPageSizeOptionsInput) {
       this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
