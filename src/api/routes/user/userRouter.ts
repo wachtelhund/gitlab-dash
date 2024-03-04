@@ -5,3 +5,4 @@ const controller = new UserController();
 
 router.get('/profile', (req, res, next) => controller.getProfile(req, res, next));
 router.get('/activities', (req, res, next) => controller.getActivities(req, res, next));
+router.get('/group-projects', (req, res, next) => controller.getGroupProjects(req, res, next));

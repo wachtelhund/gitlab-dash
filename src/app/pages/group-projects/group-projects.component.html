@@ -1,1 +1,27 @@
-<p>group-projects works!</p>
+<mat-card *ngFor="let group of groups">
+        <mat-card-header>
+            <mat-card-title>{{group.name}}</mat-card-title>
+            <mat-card-subtitle><a href={{group.webUrl}}>{{group.fullPath}}</a></mat-card-subtitle>
+        </mat-card-header>
+        <table mat-table [dataSource]="group.projects.nodes">
+            <ng-container matColumnDef="project">
+                <th mat-header-cell *matHeaderCellDef> Project </th>
+                <td mat-cell *matCellDef="let element"> <a target="_blank" href={{element.webUrl}}>{{element.name}}</a> </td>
+            </ng-container>
+            <ng-container matColumnDef="lastCommit">
+                <th mat-header-cell *matHeaderCellDef> Last Commit </th>
+                <td mat-cell *matCellDef="let element"> {{element.repository.tree.lastCommit.committedDate | date:'short'}} </td>
+            </ng-container>
+            <ng-container matColumnDef="avatar">
+                <th mat-header-cell *matHeaderCellDef> Commit By </th>
+                <td mat-cell *matCellDef="let element">
+                    <div class="avatar-name">
+                        <img src={{element.repository.tree.lastCommit.author.avatarUrl}} alt="Project avatar">
+                        <a href={{element.repository.tree.lastCommit.author.webUrl}}>{{element.repository.tree.lastCommit.author.name}}</a>
+                    </div>
+                </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+</mat-card>

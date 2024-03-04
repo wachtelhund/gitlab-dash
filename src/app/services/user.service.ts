@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { Profile } from '../types/user/profile';
 import { Activity } from '../types/user/activity';
 import { PagedRequest } from '../types/user/paged.request';
+import { GLGroup, GLGroupsResponse } from '../types/user/groupStruct';
 
 @Injectable({
   providedIn: 'root'
@@ -26,4 +27,10 @@ export class UserService {
       observe: 'response'
     })
   }
+
+  public getGroupProjects(): Observable<GLGroupsResponse> {
+    return this.http.get<GLGroupsResponse>(env.BASE_URL + '/api/user-data/group-projects')
+  }
+
+
 }
