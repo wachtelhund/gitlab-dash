@@ -24,7 +24,7 @@ export class AppComponent {
     { text: 'Home', href: '/' },
     { text: 'Profile', href: '/profile' },
     { text: 'Activities', href: '/activities' },
-    { text: 'Group projects', href: '/group-projects' },
+    { text: 'Group projects', href: '/group-project' },
     { text: 'Logout', href: '/', sideEffect: () => {
       this.http.post(env.BASE_URL + '/api/auth/logout', {
         credentials: 'include',

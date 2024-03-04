@@ -19,6 +19,11 @@ export const routes: Routes = [
         canActivate: [authGuard]
     },
     {
+        path: 'group-project',
+        loadComponent: () => import('./pages/group-projects/group-projects.component').then(m => m.GroupProjectsComponent),
+        canActivate: [authGuard]
+    },
+    {
         path: '**',
         redirectTo: '/'
     }
