@@ -4,7 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { HttpClient } from '@angular/common/http';
-import env from '../../../../exposed.env.json';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-header',
@@ -43,11 +43,11 @@ export class HeaderComponent implements OnInit {
   constructor(private authService: AuthService, private http: HttpClient) {
     this.title = 'LNU WT1';
     const paramaters = {
-        client_id: env.AUTH.OAUTH_APPLICATION_ID,
-        state: env.AUTH.STATE,
-        scope: env.AUTH.SCOPE,
-        response_type: env.AUTH.RESPONSE_TYPE,
-        redirect_uri: env.AUTH.REDIRECT_URI,
+        client_id: environment.AUTH.OAUTH_APPLICATION_ID,
+        state: environment.AUTH.STATE,
+        scope: environment.AUTH.SCOPE,
+        response_type: environment.AUTH.RESPONSE_TYPE,
+        redirect_uri: environment.AUTH.REDIRECT_URI,
       }
     
       const url = new URL('https://gitlab.lnu.se/oauth/authorize?')
