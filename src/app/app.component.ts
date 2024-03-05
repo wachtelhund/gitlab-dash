@@ -14,12 +14,12 @@ import { AuthService } from './services/auth.service';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title = 'GitLab LNU';
+  title = 'GitLab WT1';
   url!: string;
   router = inject(Router);
   cookieService = inject(SsrCookieService);
   authService = inject(AuthService);
 
-  constructor(private http: HttpClient) {
+  constructor() {
   }
 }
