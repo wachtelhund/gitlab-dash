@@ -1,6 +1,5 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import env from '../../../env.json';
 import { Observable } from 'rxjs';
 import { Profile } from '../types/user/profile';
 import { Activity } from '../types/user/activity';
@@ -14,7 +13,7 @@ import { GLGroupsResponse } from '../types/user/groupStruct';
  * User service
  */
 export class UserService {
-  url = env.BASE_URL + '/api/user-data/profile';
+  url = '/api/user-data/profile';
   constructor(private http: HttpClient) {}
 
   /**
@@ -28,7 +27,7 @@ export class UserService {
    * Get the activities
    */
   public getActivities(req: PagedRequest): Observable<HttpResponse<Activity[]>> {
-    return this.http.get<Activity[]>(env.BASE_URL + '/api/user-data/activities', {
+    return this.http.get<Activity[]>('/api/user-data/activities', {
       params: {
         page: req.page.toString(),
         per_page: req.per_page.toString()
@@ -41,7 +40,7 @@ export class UserService {
    * Get the group projects
    */
   public getGroupProjects(): Observable<GLGroupsResponse> {
-    return this.http.get<GLGroupsResponse>(env.BASE_URL + '/api/user-data/group-projects')
+    return this.http.get<GLGroupsResponse>('/api/user-data/group-projects')
   }
 
 

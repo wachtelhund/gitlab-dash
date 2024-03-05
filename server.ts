@@ -6,7 +6,7 @@ import { dirname, join, resolve } from 'node:path';
 import bootstrap from './src/main.server';
 import { router } from './src/api/routes/router';
 import cookieParser from 'cookie-parser';
-import env from './env.json';
+import dotenv from 'dotenv';
 
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
@@ -14,6 +14,7 @@ export function app(): express.Express {
   const serverDistFolder = dirname(fileURLToPath(import.meta.url));
   const browserDistFolder = resolve(serverDistFolder, '../browser');
   const indexHtml = join(serverDistFolder, 'index.server.html');
+  dotenv.config();
 
   const commonEngine = new CommonEngine();
 
@@ -21,7 +22,7 @@ export function app(): express.Express {
   server.set('views', browserDistFolder);
 
   // Example Express Rest API endpoints
-  server.use(cookieParser(env.COOKIE.SECRET))
+  server.use(cookieParser(process.env['SECRET']))
   server.use(router)
  
   server.get('*.*', express.static(browserDistFolder, {

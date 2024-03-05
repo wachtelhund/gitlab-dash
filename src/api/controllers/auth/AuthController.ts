@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import env from '../../../../env.json'
 
 /**
  * Authentication controller
@@ -15,13 +14,13 @@ export class AuthController {
         const { code } = req.query
     
         const paramaters = {
-        client_id: env.AUTH.OAUTH_APPLICATION_ID,
-        client_secret: env.AUTH.OAUTH_KEY,
-        code,
-        grant_type: env.AUTH.GRANT_TYPE, 
-        redirect_uri: env.AUTH.REDIRECT_URI,
+            client_id: process.env["OAUTH_APPLICATION_ID"],           
+            client_secret: process.env["OAUTH_KEY"],
+            code,
+            grant_type: process.env["GRANT_TYPE"],
+            redirect_uri: process.env["REDIRECT_URI"],
         }
-    
+
         const url = new URL('https://gitlab.lnu.se/oauth/token')
         url.search = new URLSearchParams(paramaters as OAuthParamaters).toString()
     

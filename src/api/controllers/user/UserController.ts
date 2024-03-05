@@ -20,6 +20,7 @@ export class UserController {
             }
         })
         const data = await response.json()
+        
         res.send(data);
     }
 

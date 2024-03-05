@@ -3,8 +3,8 @@ import { HyperButton } from '../../types/ui/HyperButton';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import env from '../../../../env.json';
 import { HttpClient } from '@angular/common/http';
+import env from '../../../../exposed.env.json';
 
 @Component({
   selector: 'app-header',
@@ -26,7 +26,7 @@ export class HeaderComponent implements OnInit {
     { text: 'Activities', href: '/activities' },
     { text: 'Group projects', href: '/group-project' },
     { text: 'Logout', href: '/', sideEffect: () => {
-      this.http.post(env.BASE_URL + '/api/auth/logout', {
+      this.http.post('/api/auth/logout', {
         credentials: 'include',
       }).subscribe(() => {
         this.authService.logout();

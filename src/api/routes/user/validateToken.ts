@@ -1,6 +1,5 @@
 import { NextFunction, Response, Request } from "express";
 import { Token } from "../../../app/types/auth/Token";
-import env from '../../../../env.json'
 
 /**
  * Middleware to validate the token and refresh it if it's expired
@@ -37,8 +36,8 @@ export async function validateToken (
  */
 async function refreshToken(refreshToken: string) {
     const paramaters = {
-        client_id: env.AUTH.OAUTH_APPLICATION_ID,
-        client_secret: env.AUTH.OAUTH_KEY,
+        client_id: process.env["OAUTH_APPLICATION_ID"],
+        client_secret: process.env["OAUTH_SECRET"],
         refresh_token: refreshToken,
         grant_type: 'refresh_token',
     }
