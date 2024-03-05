@@ -1,0 +1,14 @@
+{
+    "version": 2,
+    "public": true,
+    "name": "angular-ssr-startup",
+    "devCommand": "node dist/testing_ssr/server/server.mjs",
+    "rewrites": [
+      { "source": "/(.*)", "destination": "/api" }
+    ],
+    "functions": {
+      "api/index.js": {
+        "includeFiles": "dist/testing_ssr/browser/**"
+      }
+    }
+  }
