@@ -41,7 +41,7 @@ export class HeaderComponent implements OnInit {
   ];
 
   constructor(private authService: AuthService, private http: HttpClient) {
-    this.title = 'testing_ssr';
+    this.title = 'LNU WT1';
     const paramaters = {
         client_id: env.AUTH.OAUTH_APPLICATION_ID,
         state: env.AUTH.STATE,
